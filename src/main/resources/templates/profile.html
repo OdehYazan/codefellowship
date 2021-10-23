@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+
+ <div class="card" style="width: 18rem;" th:each="user : ${user}">
+    <img src="https://m.media-amazon.com/images/I/712hb4vaAhS._AC_SL1500_.jpg" class="card-img-top" alt="zoro">
+    <div class="card-body">
+        <h5 class="card-title" th:text="${user.username}+' Profile'"></h5>
+        <p class="card-text" th:text=" 'Name :'+${user.firstName}+' '+${user.lastName}" ></p>
+        <p class="card-text" th:text=" 'Birth Day :'+${user.dateOfBirth}" ></p>
+        <p class="card-text" th:text=" 'Bio :'+${user.bio}" ></p>
+
+    </div>
+</div>
+<!-- <form th:action="@{/logout}" method="post">-->
+<!--     <input type="submit" value="Sign Out"/>-->
+<!-- </form>-->
+<form   th:action="@{/logout}" method="POST" >
+    <button type="submit" class="btn btn-danger">Sign Out</button>
+        </form>
+
+ <form class="px-4 py-3" th:action="@{/addpost}" method="post" style="width: 70%;">
+     <div class="form-group">
+         <label for="body" id="body">Type Your Post</label>
+         <textarea class="form-control" rows="3" field="*{body}" name="body" required></textarea>
+     </div>
+     <button type="submit" class="btn btn-success">Submit</button>
+ </form>
+ <div>
+     <h3> Your Posts : </h3>
+     <ul th:each="post : ${postList}" class="list-group" style="width: 70%;">
+         <li class="list-group-item disabled">Post :<span th:text="${post.body}"></span><br/>
+         <li class="list-group-item disabled">Posted By :<span th:text="${post.user.username}"></span><br/>
+
+         </li>
+         <br/>
+     </ul>
+
+ </div>
+</body>
+</html>
