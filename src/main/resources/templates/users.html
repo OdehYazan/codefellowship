@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Fellowship - All Users</title>
+  <link
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+  >
+  <link href="/style.css" rel="stylesheet">
+</head>
+
+<body>
+<!--<header class="jumbotron">-->
+<!--  <div th:replace="fragments/nav :: navUserLoggedIn(user=${applicationUser})"></div>-->
+<!--</header>-->
+
+<main class="container">
+  <h1>Users:</h1>
+  <p>
+    Click on a username to learn more about that person!<br>
+    Click the follow button to follow a user!<br>
+    Click on the unfollow button to unfollow a user!<br>
+  </p>
+  <div class="row justify-content-center">
+    <div class="card" th:each="singleUser : ${allUsers}" style="margin-bottom: 10px">
+      <a th:href="'/users/' + ${singleUser.id}">
+        <div class="card-body" style="width: 12rem;">
+          <img src="/default_image.png" width="20%" class="card-img-top" alt="profile image">
+          <p></p>
+          <h5 class="card-title" style="text-align: center" th:text="${singleUser.username}">User name</h5>
+        </div>
+      </a>
+      <div class="card-body text-center" th:if="${singleUser.id} != ${applicationUser.id}">
+<!--        <div th:if="!${applicationUser.followers.contains(singleUser)}">-->
+          <form method="POST" action="/users/follow">
+            <button style="align-items: center" type="submit" class="btn btn-primary">Follow Me!</button>
+            <input type="hidden" name="followedUser" th:value="${singleUser.id}">
+          </form>
+        </div>
+<!--        <div th:if="${applicationUser.followers.contains(singleUser)}">-->
+          <p
+                  class="btn btn-primary"
+                  style="background-color: red; border-color: red">Following!
+          </p>
+          <form method="POST" action="/users/unfollow">
+            <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="background-color: black; border-color: black">Unfollow Me!
+            </button>
+            <input type="hidden" name="unfollowedUser" th:value="${singleUser.id}">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

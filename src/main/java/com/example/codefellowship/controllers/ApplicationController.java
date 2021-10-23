@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,5 +74,32 @@ public class ApplicationController {
         return new RedirectView("/profile");
     }
 
-
+    @GetMapping("/feed")
+    public String getFeed(Principal p, Model m) {
+        ApplicationUser applicationUser = applicationUserRepository.findApplicationUserByUsername(p.getName());
+        m.addAttribute("applicationUser", applicationUser);
+        return "feed";
+    }
+    @GetMapping("/users")
+    public String getAllUsers(Principal p, Model m) {
+        ApplicationUser applicationUser = applicationUserRepository.findApplicationUserByUsername(p.getName());
+        List<ApplicationUser> allUsers = applicationUserRepository.findAll();
+        m.addAttribute("applicationUser", applicationUser);
+        m.addAttribute("allUsers", allUsers);
+        return "users";
+    }
+    @PostMapping("/users/follow")
+    public RedirectView addFollower(long followedUser, Principal p) {
+        ApplicationUser primaryUser = applicationUserRepository.findApplicationUserByUsername(p.getName());
+        primaryUser.addFollower(applicationUserRepository.findById(followedUser).get());
+        applicationUserRepository.save(primaryUser);
+        return new RedirectView("/users");
+    }
+    @PostMapping("/users/unfollow")
+    public RedirectView removeFollower(long unfollowedUser, Principal p) {
+        ApplicationUser primaryUser = applicationUserRepository.findApplicationUserByUsername(p.getName());
+        primaryUser.removeFollower(applicationUserRepository.findById(unfollowedUser).get());
+        applicationUserRepository.save(primaryUser);
+        return new RedirectView("/users");
+    }
 }

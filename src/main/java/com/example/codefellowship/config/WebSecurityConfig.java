@@ -3,6 +3,8 @@ package com.example.codefellowship.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,17 +28,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
+                .cors().disable()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/signup").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/", "/login", "/signup", "/error", "/style.css")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/users")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll()
+                .defaultSuccessUrl("/myprofile")
                 .and()
-                .logout()
-                .permitAll();
+                .logout();
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

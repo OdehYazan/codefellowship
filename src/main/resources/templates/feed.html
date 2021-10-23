@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Fellowship - Feed</title>
+    <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    >
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+<!--<header class="jumbotron">-->
+<!--    <div th:replace="fragments/nav :: navUserLoggedIn(user=${applicationUser})"></div>-->
+<!--</header>-->
+
+<main class="container">
+    <h1>Welcome to your feed, <span th:text="${applicationUser.firstName}"></span>!</h1>
+
+    <div th:each="singleFollower : ${applicationUser.followers}">
+        <div th:replace="fragments/posts :: posts(appUser=${singleFollower}, currentUser=${applicationUser})"></div>
+    </div>
+</main>
+</body>
+</html>
