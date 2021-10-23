@@ -26,5 +26,24 @@
 <form   th:action="@{/logout}" method="POST" >
     <button type="submit" class="btn btn-danger">Sign Out</button>
         </form>
+
+ <form class="px-4 py-3" th:action="@{/addpost}" method="post" style="width: 70%;">
+     <div class="form-group">
+         <label for="body" id="body">Type Your Post</label>
+         <textarea class="form-control" rows="3" field="*{body}" name="body" required></textarea>
+     </div>
+     <button type="submit" class="btn btn-success">Submit</button>
+ </form>
+ <div>
+     <h3> Your Posts : </h3>
+     <ul th:each="post : ${postList}" class="list-group" style="width: 70%;">
+         <li class="list-group-item disabled">Post :<span th:text="${post.body}"></span><br/>
+         <li class="list-group-item disabled">Posted By :<span th:text="${post.user.username}"></span><br/>
+
+         </li>
+         <br/>
+     </ul>
+
+ </div>
 </body>
 </html>
