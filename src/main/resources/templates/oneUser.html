@@ -13,16 +13,13 @@
 </head>
 
 <body>
-<!--<header class="jumbotron">-->
-<!--    <div th:replace="fragments/nav :: navUserLoggedIn(user=${currentUser})"></div>-->
-<!--</header>-->
+<h1 th:text="'Current User :' +${currentUser.username}"></h1>
+<h3 th:text="'Chosen User => UserName: ' +${otherUser.username}"></h3>
+<h3 th:text="'Chosen User => First : ' +${otherUser.firstName}"></h3>
+<h3 th:text="'Chosen User => Last Name: ' +${otherUser.lastName}"></h3>
+<h3 th:text="'Chosen User => Date Of Birth: ' +${otherUser.dateOfBirth}"></h3>
+<h3 th:text="'Chosen User => Bio: ' +${otherUser.bio}"></h3>
 
-<main class="container">
-<!--    <h1>Learn more about <span th:text="${otherUser.username}"></span>!</h1>-->
-    <div>
-        <div th:replace="fragments/userInfo :: userInfo(appUser=${otherUser})"></div>
-        <div th:replace="fragments/posts :: posts(appUser=${otherUser}, currentUser=${otherUser})"></div>
-    </div>
 </main>
 </body>
 </html>

@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Code Fellowship - Feed</title>
-    <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-    >
-    <link href="/style.css" rel="stylesheet">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
 </head>
 <body>
-<!--<header class="jumbotron">-->
-<!--    <div th:replace="fragments/nav :: navUserLoggedIn(user=${applicationUser})"></div>-->
-<!--</header>-->
+<div >
+    <div style="width: 18rem;" th:each="follower:${Allfollowing}">
+        <div>
+            <h6  th:text="${follower.username}"></h6>
+            <p  th:text="${follower.bio}"></p>
 
-<main class="container">
-    <h1>Welcome to your feed, <span th:text="${applicationUser.firstName}"></span>!</h1>
+<!--            <form method="post" th:action="@{'/getPosts?id='+${follower.id}}">-->
 
-    <div th:each="singleFollower : ${applicationUser.followers}">
-        <div th:replace="fragments/posts :: posts(appUser=${singleFollower}, currentUser=${applicationUser})"></div>
+<!--                <button  type="submit">Follow</button>-->
+<!--            </form>-->
+        </div>
     </div>
-</main>
+
+</div>
 </body>
 </html>

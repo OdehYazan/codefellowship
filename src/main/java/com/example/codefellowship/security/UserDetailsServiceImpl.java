@@ -1,4 +1,4 @@
-package com.example.codefellowship.config;
+package com.example.codefellowship.security;
 
 import com.example.codefellowship.domain.ApplicationUser;
 import com.example.codefellowship.repository.ApplicationUserRepository;
@@ -15,6 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     ApplicationUserRepository applicationUserRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         ApplicationUser applicationUser= applicationUserRepository.findApplicationUserByUsername(username);
 
         if (applicationUser == null) {

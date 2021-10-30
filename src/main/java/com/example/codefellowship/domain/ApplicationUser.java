@@ -32,7 +32,7 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_followers",
             joinColumns = { @JoinColumn(name = "primaryUser") },
@@ -105,7 +105,15 @@ public class ApplicationUser implements UserDetails {
     }
 
     public Set<ApplicationUser> getFollowers() {
-        return this.followers;
+        return followers;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
